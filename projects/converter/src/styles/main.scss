@@ -1,0 +1,12 @@
+@import "./custom/index.scss";
+@import "./variables/index.scss";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: $font-color;
+}

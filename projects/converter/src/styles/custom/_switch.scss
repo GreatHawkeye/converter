@@ -1,0 +1,8 @@
+@import "colors.scss";
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background: #d4ab987e !important;
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background: $accent !important;
+}

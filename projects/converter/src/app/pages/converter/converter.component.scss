@@ -1,0 +1,90 @@
+@import "colors.scss";
+
+.neu {
+  box-shadow: 9px 9px 18px $neu, -9px -9px 18px #ffffff;
+}
+
+:host {
+  display: grid;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: $primary;
+
+  padding: 3rem;
+
+  grid-template:
+    " settings result" min-content
+    " table table" / 0.5fr 1fr;
+
+  .settings {
+    grid-area: settings;
+
+    display: grid;
+    grid-template:
+      "currency switch"
+      "rate variation"
+      "amount calculate";
+
+    padding: 2em;
+    border-radius: 2rem;
+    background: $primary;
+    .info {
+      margin: 1rem 0;
+      .title {
+        font-size: 1rem;
+        margin-bottom: 0;
+      }
+    }
+    .currency {
+      grid-area: currency;
+      font-size: 2rem;
+    }
+    .calculate {
+      grid-area: calculate;
+      border-radius: 2rem;
+      background: $primary;
+
+      color: $font-color;
+    }
+    .switch {
+      grid-area: switch;
+      mat-slide-toggle {
+        padding: 1rem;
+        border-radius: 2rem;
+        background: $primary;
+      }
+    }
+    .rate {
+      grid-area: rate;
+      .variation {
+        color: $accent;
+      }
+    }
+    .variation {
+      grid-area: variation;
+    }
+
+    .amount {
+      grid-area: amount;
+      width: 80%;
+    }
+  }
+
+  .result {
+    grid-area: result;
+    place-self: center;
+    font-size: 2.5rem;
+  }
+
+  table {
+    grid-area: table;
+    width: 100%;
+    margin-top: 3rem;
+    background: $primary;
+
+    th,
+    td {
+      color: $font-color;
+    }
+  }
+}

@@ -1,0 +1,103 @@
+<ng-container
+  *ngIf="{
+    amountFieldValue: amountFieldValue$ | async,
+    totalExchangeRate: totalExchangeRate$ | async,
+    exchangeRateVariation: exchangeRateVariation$ | async,
+    from: from$ | async,
+    to: to$ | async,
+    exchangeRate: exchangeRate$ | async,
+    tableDisplayedColumns: tableDisplayedColumns$ | async,
+    tableDataSource: tableDataSource$ | async
+  } as data"
+>
+  <div class="settings neu">
+    <h2 class="currency">{{ data.from.currency }}/{{ data.to.currency }}</h2>
+    <div class="switch">
+      <mat-slide-toggle class="neu" (change)="switchCurrency($event)"
+        >Inverser</mat-slide-toggle
+      >
+    </div>
+    <div class="info rate">
+      <p class="title">Taux de change :</p>
+      <p class="detail">
+        {{ data.exchangeRate | number: "1.5-5":"fr" }} +
+        <span class="variation"> {{ data.exchangeRateVariation }}%</span> =
+        <strong> {{ data.totalExchangeRate | number: "1.5-5":"fr" }}</strong>
+      </p>
+    </div>
+
+    <div class="info variation">
+      <p class="title">
+        Variation
+        <button
+          mat-mini-fab
+          matTooltip="Représente la variation (entre -2% et 2%) à apporter au taux de change"
+        >
+          ?
+        </button>
+        :
+      </p>
+      <mat-slider
+        (change)="updateExchangeRateVariation($event)"
+        thumbLabel
+        [displayWith]="formatLabel"
+        min="-200"
+        max="200"
+      ></mat-slider>
+    </div>
+
+    <mat-form-field class="amount">
+      <mat-label>Montant</mat-label>
+      <input
+        type="number"
+        matInput
+        [value]="data.amountFieldValue"
+        (input)="updateAmountFieldValue($event.target.value)"
+      />
+    </mat-form-field>
+
+    <button class="calculate neu" (click)="calculate($event)" mat-button>
+      Convertir
+    </button>
+  </div>
+
+  <div class="result">
+    {{ data.from.value | currency: data.from.currency }} =
+    {{ data.to.value | currency: data.to.currency }}
+  </div>
+
+  <table class="neu" mat-table [dataSource]="data.tableDataSource">
+    <ng-container matColumnDef="randomExchangeRate">
+      <th mat-header-cell *matHeaderCellDef>Taux de change réel</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.randomExchangeRate | number: "1.5-5":"fr" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="forcedExchangeRate">
+      <th mat-header-cell *matHeaderCellDef>Taux de change avec variation</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.forcedExchangeRate | number: "1.5-5":"fr" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="from">
+      <th mat-header-cell *matHeaderCellDef>Montant renseigné</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.from.value | currency: element.from.currency }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="to">
+      <th mat-header-cell *matHeaderCellDef>Montant calculé</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.to.value | currency: element.to.currency }}
+      </td>
+    </ng-container>
+    <tr class="mat-row" *matNoDataRow>
+      Aucune donnée à afficher
+    </tr>
+    <tr mat-header-row *matHeaderRowDef="data.tableDisplayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: data.tableDisplayedColumns"></tr>
+  </table>
+</ng-container>

@@ -1,0 +1,17 @@
+@import "colors.scss";
+
+.mat-slider-horizontal .mat-slider-wrapper {
+  background: $accent !important;
+  top: 0.75rem !important;
+}
+
+.mat-slider-track-fill,
+.mat-slider-thumb,
+.mat-slider-thumb-label {
+  background: $accent !important;
+}
+
+.mat-slider-thumb-label {
+  height: 2.5rem !important;
+  width: 2.5rem !important;
+}

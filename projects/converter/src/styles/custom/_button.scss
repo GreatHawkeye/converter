@@ -1,0 +1,15 @@
+@import "colors.scss";
+
+.mat-mini-fab {
+  width: 1rem !important;
+  height: 1rem !important;
+  line-height: 1rem !important;
+
+  background-color: $accent !important;
+
+  .mat-button-wrapper {
+    padding: 0 !important;
+    line-height: 1rem !important;
+    font-size: 0.75rem !important;
+  }
+}
